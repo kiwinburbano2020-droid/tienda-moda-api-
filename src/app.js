@@ -6,11 +6,13 @@ const compression = require('compression');
 
 const app = express();
 
+
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use(compression());
 app.use('/api/v1/auth', require('./routes/authRoutes'));
+app.set('trust proxy', 1);
 
 
 if (process.env.NODE_ENV === 'development') {
