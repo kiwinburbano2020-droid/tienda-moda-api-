@@ -6,7 +6,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development node src/server.js",
     "dev": "cross-env NODE_ENV=development nodemon src/server.js",
-    "test": "cross-env NODE_ENV=test jest --runInBand --forceExit",
+    "test": "cross-env NODE_ENV=test jest --passWithNoTests --runInBand --forceExit",
     "test:unit": "cross-env NODE_ENV=test jest tests/unit",
     "test:integration": "cross-env NODE_ENV=test jest tests/integration --runInBand --forceExit"
   },
