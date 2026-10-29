@@ -25,6 +25,9 @@ exports.protect = async (req, res, next) => {
     );
     
     req.user = await User.findById(decoded.id);
+    if (!req.user) {
+      return res.status(401).json({ status: 'fail', message: 'El usuario ya no existe' });
+    }
     next();
   } catch (error) {
     return res.status(401).json({
@@ -32,4 +35,13 @@ exports.protect = async (req, res, next) => {
       message: 'Token no válido o expirado',
     });
   }
+};
+exports.restrictTo = (...roles) => (req, res, next) => {
+  if (!req.user || !roles.includes(req.user.role)) {
+    return res.status(403).json({
+      status: 'fail',
+      message: 'No tiene permisos para realizar esta acción',
+    });
+  }
+  next();
 };

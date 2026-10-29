@@ -5,10 +5,12 @@
   "main": "src/server.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development node src/server.js",
+    "start:ci": "node src/server.js",
     "dev": "cross-env NODE_ENV=development nodemon src/server.js",
-    "test": "cross-env NODE_ENV=test jest --passWithNoTests --runInBand --forceExit",
+    "test": "cross-env NODE_ENV=test jest --runInBand --forceExit --verbose",
     "test:unit": "cross-env NODE_ENV=test jest tests/unit",
-    "test:integration": "cross-env NODE_ENV=test jest tests/integration --runInBand --forceExit"
+    "test:integration": "cross-env NODE_ENV=test jest tests/integration --runInBand --forceExit",
+    "seed:admin": "node scripts/seedAdmin.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/productController');
+const { protect, restrictTo } = require('../middlewares/authMiddleware');
 
-// Ruta para obtener todos los productos y crear un nuevo producto
 router
   .route('/')
   .get(productController.getAllProducts)
-  .post(productController.createProduct);
+  .post(protect, restrictTo('admin'), productController.createProduct);
 
-// Ruta para buscar un producto específico por ID
 router
   .route('/:id')
-  .get(productController.getProductById);
+  .get(productController.getProductById)
+  .put(protect, restrictTo('admin'), productController.updateProduct)
+  .delete(protect, restrictTo('admin'), productController.deleteProduct);
 
 module.exports = router;

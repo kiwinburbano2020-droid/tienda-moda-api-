@@ -34,3 +34,23 @@ exports.getProductById = catchAsync(async (req, res) => {
     data: { product },
   });
 });
+// Actualizar un producto (solo admin)
+exports.updateProduct = catchAsync(async (req, res) => {
+  const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+  if (!product) {
+    return res.status(404).json({ status: 'fail', message: 'Producto no encontrado' });
+  }
+  res.status(200).json({ status: 'success', data: { product } });
+});
+
+// Eliminar un producto (solo admin)
+exports.deleteProduct = catchAsync(async (req, res) => {
+  const product = await Product.findByIdAndDelete(req.params.id);
+  if (!product) {
+    return res.status(404).json({ status: 'fail', message: 'Producto no encontrado' });
+  }
+  res.status(204).send();
+});
